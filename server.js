@@ -82,6 +82,16 @@ const server = Bun.serve({
   idleTimeout: 255,
   async fetch(req) {
     const url = new URL(req.url);
+
+    // Railway terminates TLS at the edge and forwards the original scheme.
+    // Force https so the browser never shows "Not Secure".
+    if (req.headers.get("x-forwarded-proto") === "http") {
+      return new Response(null, {
+        status: 301,
+        headers: { Location: `https://${url.host}${url.pathname}${url.search}` },
+      });
+    }
+
     let path;
     try {
       path = decodeURIComponent(url.pathname);
