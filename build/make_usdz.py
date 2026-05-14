@@ -19,8 +19,8 @@ def build_usda(height: float = 1.65) -> str:
     H = height
 
     # Proportions tuned for an XKCD look at 1.65m.
-    stick_r = 0.012
-    head_r = 0.105
+    stick_r = 0.028
+    head_r = 0.13
 
     head_cy = H - head_r
     body_top = head_cy - head_r
