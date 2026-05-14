@@ -59,6 +59,9 @@ def build_usda(height: float = 1.65) -> str:
     left_leg_rot = math.degrees(math.atan2(-leg_dir_x, leg_dir_y))
     right_leg_rot = -left_leg_rot
 
+    # Common metadata block for any prim that binds a material
+    api = '(\n            prepend apiSchemas = ["MaterialBindingAPI"]\n        )'
+
     return dedent(f"""\
         #usda 1.0
         (
@@ -69,7 +72,10 @@ def build_usda(height: float = 1.65) -> str:
 
         def Xform "StickFigure"
         {{
-            def Sphere "head"
+            double3 xformOp:translate = (0, {stick_r}, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Sphere "head" {api}
             {{
                 double radius = {head_r}
                 rel material:binding = </StickFigure/Looks/Black>
@@ -77,7 +83,7 @@ def build_usda(height: float = 1.65) -> str:
                 uniform token[] xformOpOrder = ["xformOp:translate"]
             }}
 
-            def Cylinder "body"
+            def Cylinder "body" {api}
             {{
                 uniform token axis = "Y"
                 double height = {body_len}
@@ -87,7 +93,7 @@ def build_usda(height: float = 1.65) -> str:
                 uniform token[] xformOpOrder = ["xformOp:translate"]
             }}
 
-            def Cylinder "leftArm"
+            def Cylinder "leftArm" {api}
             {{
                 uniform token axis = "Y"
                 double height = {arm_len}
@@ -95,10 +101,10 @@ def build_usda(height: float = 1.65) -> str:
                 rel material:binding = </StickFigure/Looks/Black>
                 double xformOp:rotateZ = {left_arm_rot}
                 double3 xformOp:translate = ({-arm_mid_x}, {arm_mid_y}, 0)
-                uniform token[] xformOpOrder = ["xformOp:rotateZ", "xformOp:translate"]
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZ"]
             }}
 
-            def Cylinder "rightArm"
+            def Cylinder "rightArm" {api}
             {{
                 uniform token axis = "Y"
                 double height = {arm_len}
@@ -106,10 +112,10 @@ def build_usda(height: float = 1.65) -> str:
                 rel material:binding = </StickFigure/Looks/Black>
                 double xformOp:rotateZ = {right_arm_rot}
                 double3 xformOp:translate = ({arm_mid_x}, {arm_mid_y}, 0)
-                uniform token[] xformOpOrder = ["xformOp:rotateZ", "xformOp:translate"]
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZ"]
             }}
 
-            def Cylinder "leftLeg"
+            def Cylinder "leftLeg" {api}
             {{
                 uniform token axis = "Y"
                 double height = {leg_len}
@@ -117,10 +123,10 @@ def build_usda(height: float = 1.65) -> str:
                 rel material:binding = </StickFigure/Looks/Black>
                 double xformOp:rotateZ = {left_leg_rot}
                 double3 xformOp:translate = ({leg_mid_x}, {leg_mid_y}, 0)
-                uniform token[] xformOpOrder = ["xformOp:rotateZ", "xformOp:translate"]
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZ"]
             }}
 
-            def Cylinder "rightLeg"
+            def Cylinder "rightLeg" {api}
             {{
                 uniform token axis = "Y"
                 double height = {leg_len}
@@ -128,7 +134,7 @@ def build_usda(height: float = 1.65) -> str:
                 rel material:binding = </StickFigure/Looks/Black>
                 double xformOp:rotateZ = {right_leg_rot}
                 double3 xformOp:translate = ({-leg_mid_x}, {leg_mid_y}, 0)
-                uniform token[] xformOpOrder = ["xformOp:rotateZ", "xformOp:translate"]
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZ"]
             }}
 
             def Scope "Looks"

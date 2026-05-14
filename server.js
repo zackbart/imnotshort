@@ -20,13 +20,15 @@ const headersFor = (path) => {
   if (MIME[ext]) h["Content-Type"] = MIME[ext];
 
   if (ext === ".usdz") {
-    h["Cache-Control"] = "public, max-age=31536000, immutable";
+    // Short cache so a pre-event fix actually reaches devices that already
+    // visited the page.
+    h["Cache-Control"] = "public, max-age=300, must-revalidate";
     // AR Quick Look prefers being served as a single attachment.
     h["Content-Disposition"] = 'inline; filename="figure.usdz"';
   } else if (ext === ".html" || path === "/") {
     h["Cache-Control"] = "public, max-age=60, must-revalidate";
   } else {
-    h["Cache-Control"] = "public, max-age=3600";
+    h["Cache-Control"] = "public, max-age=300";
   }
   h["X-Content-Type-Options"] = "nosniff";
   return h;
@@ -37,7 +39,12 @@ const server = Bun.serve({
   hostname: "0.0.0.0",
   async fetch(req) {
     const url = new URL(req.url);
-    let path = decodeURIComponent(url.pathname);
+    let path;
+    try {
+      path = decodeURIComponent(url.pathname);
+    } catch {
+      return new Response("Bad Request", { status: 400 });
+    }
     if (path === "/") path = "/index.html";
 
     const filePath = normalize(join(PUBLIC, path));

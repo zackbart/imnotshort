@@ -75,35 +75,39 @@
     max-width: 28ch;
   }
 
-  .ar {
+  /* The visual card. The <a rel="ar"> inside contains ONLY the <img>
+     (Apple/WebKit requirement). Labels are siblings of the <a>. */
+  .ar-card {
     display: block;
-    position: relative;
     border: 1px solid var(--line);
     border-radius: 20px;
     padding: 28px 20px 22px;
     background: var(--paper);
+    text-align: center;
+    transition: transform 0.12s ease;
+  }
+  .ar-card:has(.ar-link:active) { transform: scale(0.985); }
+
+  .ar-link {
+    display: block;
     text-decoration: none;
     color: inherit;
     -webkit-tap-highlight-color: transparent;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    margin: 0 0 18px;
   }
-  .ar:active { transform: scale(0.985); }
-  .ar img {
+  .ar-link img {
     display: block;
     width: 110px;
     height: 220px;
-    margin: 0 auto 18px;
+    margin: 0 auto;
     object-fit: contain;
-    pointer-events: none;
   }
   .ar-label {
-    text-align: center;
     font: 700 15px/1 -apple-system, system-ui, sans-serif;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
   .ar-sub {
-    text-align: center;
     margin-top: 6px;
     font-size: 13px;
     color: var(--muted);
@@ -150,11 +154,13 @@
 
   <p class="lede">This stick figure is the height of the average human on Earth. I am taller than this stick figure.</p>
 
-  <a class="ar" rel="ar" href="/figure.usdz#allowsContentScaling=0">
-    <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 240'%3E%3Ccircle cx='60' cy='26' r='17' fill='%230a0a0a'/%3E%3Cpath d='M60 44v92M60 60l-30 38M60 60l30 38M60 136l-22 90M60 136l22 90' stroke='%230a0a0a' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Stick figure, 165 cm tall">
+  <div class="ar-card">
+    <a class="ar-link" rel="ar" href="/figure.usdz#allowsContentScaling=0">
+      <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 240'%3E%3Ccircle cx='60' cy='26' r='17' fill='%230a0a0a'/%3E%3Cpath d='M60 44v92M60 60l-30 38M60 60l30 38M60 136l-22 90M60 136l22 90' stroke='%230a0a0a' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Stick figure, 165 cm tall">
+    </a>
     <div class="ar-label">Launch in AR</div>
-    <div class="ar-sub">tap to drop the stick figure</div>
-  </a>
+    <div class="ar-sub">tap the figure to drop it</div>
+  </div>
 
   <p class="hint">Point your camera at the floor <b>next to me</b>, tap to place, then stand beside it.</p>
 </main>
