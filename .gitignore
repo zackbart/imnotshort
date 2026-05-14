@@ -8,3 +8,5 @@ bun.lockb
 # build artifacts
 build/figure.usda
 build/*.roundtrip.usda
+
+.motif/

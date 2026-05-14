@@ -21,10 +21,9 @@ const headersFor = (path) => {
 
   if (ext === ".usdz") {
     // Short cache so a pre-event fix actually reaches devices that already
-    // visited the page.
+    // visited the page. No Content-Disposition — AR Quick Look dispatch
+    // is cleanest with just Content-Type set.
     h["Cache-Control"] = "public, max-age=300, must-revalidate";
-    // AR Quick Look prefers being served as a single attachment.
-    h["Content-Disposition"] = 'inline; filename="figure.usdz"';
   } else if (ext === ".html" || path === "/") {
     h["Cache-Control"] = "public, max-age=60, must-revalidate";
   } else {
@@ -46,6 +45,7 @@ const server = Bun.serve({
       return new Response("Bad Request", { status: 400 });
     }
     if (path === "/") path = "/index.html";
+    else if (path === "/demo" || path === "/demo/") path = "/demo/index.html";
 
     const filePath = normalize(join(PUBLIC, path));
     if (!filePath.startsWith(PUBLIC + "/") && filePath !== PUBLIC) {
