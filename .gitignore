@@ -1,0 +1,10 @@
+node_modules/
+bun.lockb
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# build artifacts
+build/figure.usda
+build/*.roundtrip.usda
