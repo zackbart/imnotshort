@@ -173,6 +173,13 @@ const server = Bun.serve({
       });
     }
 
+    if (path === "/demo2" || path === "/demo2/") {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: "/pylon.usdz#allowsContentScaling=0" },
+      });
+    }
+
     // ----- Static files -----------------------------------------------------
     if (path === "/") path = "/index.html";
     else if (path === "/control" || path === "/control/") path = "/control.html";

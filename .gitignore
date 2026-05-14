@@ -8,5 +8,7 @@ bun.lockb
 # build artifacts
 build/figure.usda
 build/*.roundtrip.usda
+build/pylon.usda
+build/mid-banner.png
 
 .motif/
