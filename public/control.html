@@ -165,94 +165,86 @@
 const TOTAL = 10;
 
 const NOTES = {
-  1: `<h3>OPENING</h3>
-      <p>Tonight I'm going to defend a height. Not just defend it — reclaim it. <em>Mid</em> has been weaponized against men in the median, and I'm here to point out that mid was always the goal.</p>
-      <p>The whole bit only works if you commit. Project conviction. You're not making a joke about being short — you're making a joke about <em>everyone else's</em> insecurity.</p>`,
-
-  2: `<h3>THE ARGUMENT</h3>
-      <p>Set up the joke: "mid" online means "nothing special." But <em>statistically</em>, mid is the literal center — the median, the most-common, the default. The most normal a thing can possibly be.</p>
-      <p>So when someone calls 5'7" "mid," they're technically correct AND complimenting you on being the platonic ideal of an average human male. Thank them.</p>`,
-
-  3: `<h3>GLOBAL MID</h3>
-      <p>The empirical anchor. Global mean height for adult men born in 1996 is 171 cm = 5'7.5". That's from Our World in Data via the NCD Risk Factor Collaboration — 2,181 population studies, 65 million participants, 200 countries.</p>
-      <p>5'7" isn't short. It's the literal global median. If 5'7" is short, more than half the men on Earth are short, which makes "short" meaningless.</p>
-      <p>The reason it feels short: you live in a country (USA, avg 5'9") that's above the global average, and you spend time online with people who all <em>claim</em> to be 6'0".</p>
-      <h3>SOURCES</h3>
+  1: `<h3>Opening</h3>
       <ul>
-        <li><a href="https://ourworldindata.org/human-height" target="_blank">Our World in Data — Human Height</a>: global mean adult male height 171 cm</li>
-        <li>NCD-RisC / The Lancet (2020): 2,181 studies, 65M participants, 200 countries</li>
-        <li>US average 5'9.2" per CDC NHANES 2015–16</li>
-      </ul>`,
-
-  4: `<h3>WITNESSES</h3>
-      <p>Read each "MID" stamp like a verdict. "Lionel Messi… <em>mid.</em> Kendrick Lamar… <em>mid.</em> Bruno Mars… <em>mid.</em>"</p>
-      <p>The whole point: when "mid" is attached to someone with talent and accomplishment, it becomes absurd. Mid is the floor of the height distribution, not a ceiling on what you can do with your life.</p>
-      <h3>NAPOLEON — THE FOUNDATIONAL LIE</h3>
-      <p>Napoleon was ~5'6–5'7" (~169 cm), <em>average for a Frenchman of his era</em>. The "short Napoleon" myth comes from two places:</p>
-      <ol>
-        <li><em>Measurement confusion</em>: French pre-Revolutionary "pieds" and "pouces" were longer than English feet/inches. His "5 pieds 2 pouces" was actually ~5'7" in modern English units. British sources translated it literally as "5'2".</li>
-        <li><em>British propaganda</em>: Cartoonist James Gillray spent years drawing Napoleon as tiny ("Little Boney") to delegitimize him.</li>
-      </ol>
-      <p>The whole "Napoleon Complex" is named after a man who wasn't short. We've been doing height propaganda for 200 years.</p>
-      <p>Heights for living people are widely-cited approximations (Wikipedia, IMDb, Celebheights). Some are debated within an inch — that's part of the joke.</p>`,
-
-  5: `<h3>HEIGHTFLATION</h3>
-      <p>The empirical core of the bit. Read both numbers slowly.</p>
-      <p><strong>Real:</strong> ~14.5% of US men are 6'0" or taller (CDC NHANES — 72" is roughly the 85th percentile).</p>
-      <p><strong>Claimed:</strong> ~33% of US men self-report being 6'0" or taller — more than double the real rate.</p>
-      <p>Dating apps amplify it. OkCupid's famous 2010 "Big Lies People Tell" analysis showed men adding ~2 inches across the distribution. Coffee Meets Bagel saw ~0.5". Apps are a fiction layer.</p>
-      <p>Coin the term: <em>HEIGHTFLATION</em>. The supply of "6 feet" has expanded faster than actual 6-foot men. The currency is debased. When everyone's 6'0", nobody is.</p>
-      <h3>SOURCES</h3>
-      <ul>
-        <li>CDC NHANES — average US male 5'9.2"; ~14.5% over 6'0"</li>
-        <li>Henderson / multiple US survey citations: 33% self-report ≥6'0"</li>
-        <li>OkCupid 2010 trends analysis (via secondary citations): ~2-inch inflation</li>
-        <li>Newsweek 2022 / Coffee Meets Bagel data: men add ~0.5"</li>
-      </ul>`,
-
-  6: `<h3>LIVE DEMO — SEE FOR YOURSELF</h3>
-      <p>Don't argue from numbers, argue from receipts. Pull out a phone, scan the QR (<code>imnotshort.zackbart.com/demo</code>), and drop a 1.65 m stick figure on the floor in front of the audience.</p>
-      <p>1.65 m = 5'5" = the global mean adult male height. Walk over and stand next to it. The point isn't that you're tall — the point is that the "average human" is shorter than people think.</p>
-      <p>Pause. Let them look. Pass the phone around if you have time. The bit is the prop; the prop is the bit.</p>
-      <h3>BACKUP IF AR FAILS</h3>
-      <p>If AR Quick Look refuses to launch (non-iOS device in audience, no internet, etc.), fall back to: "fine, take my word for it — the global average is 5'5". Half the planet is shorter than this stick figure." Then move on.</p>`,
-
-  7: `<h3>PLOT TWIST: MID IS OPTIMAL</h3>
-      <p>The big reframe. Not just defending 5'7" — claiming it's the <em>optimal</em> height.</p>
-      <h3>EVIDENCE</h3>
-      <ul>
-        <li><strong>Kuakini Honolulu-Asia Aging Study</strong> (He, Willcox et al., PLOS ONE 2014): 8,003 men of Japanese ancestry followed for 40+ years. Positive association between height and all-cause mortality (RR = 1.007 per cm). Shorter men outlived taller men. Taller men had higher cancer mortality.</li>
-        <li><strong>Italian military study</strong>: men under 5'4" lived ~2 years longer than taller men at age 70.</li>
-        <li><strong>NBA study (2017)</strong>: tallest players died youngest. Finnish athlete study: cross-country skiers outlived basketball players by nearly 7 years.</li>
-        <li><strong>Mechanism</strong>: taller bodies require more cell replications across a lifetime. More cells, more chances for things to go wrong (Robine, CNBC 2023).</li>
+        <li>Reclaim "mid" — it was always the goal</li>
+        <li>Not defending → prosecuting everyone else's insecurity</li>
       </ul>
-      <p>Punchline: calling someone mid is just announcing that you've chosen to die first.</p>
-      <h3>SOURCES</h3>
+      <p><em>Commit. Conviction sells the bit.</em></p>`,
+
+  2: `<h3>The argument</h3>
       <ul>
-        <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0094385" target="_blank">He et al. (2014) — Shorter Men Live Longer (PLOS ONE)</a></li>
-        <li>CNBC (2023): Robine, Italian military, Finnish athlete summary</li>
+        <li>Online "mid" = nothing special</li>
+        <li>Statistical "mid" = the median, the default, peak normal</li>
+      </ul>
+      <p><em>Thank them — they called you the platonic ideal.</em></p>`,
+
+  3: `<h3>Global mid</h3>
+      <ul>
+        <li><strong>171 cm = 5'7.5"</strong> — global mean adult male</li>
+        <li>OWID + NCD-RisC: 65M people, 200 countries</li>
+        <li>US avg <strong>5'9"</strong> → why it <em>feels</em> short here</li>
+        <li>Online everyone <em>claims</em> 6'0"</li>
       </ul>`,
 
-  8: `<h3>CROSS-EXAMINATION</h3>
-      <p>Walk through each objection like you're knocking them down. Napoleon Complex is the cleanest punchline — it's a stereotype named after a man who wasn't short, derived from British wartime propaganda, and the one peer-reviewed study found the <em>opposite</em> of the stereotype.</p>
-      <h3>SOURCES</h3>
+  4: `<h3>Witnesses</h3>
       <ul>
-        <li>2007 University of Central Lancashire study (via Wikipedia "Napoleon complex"): short men less likely to lose their temper</li>
-        <li>Bleeker et al. (2022): antagonism correlates with <em>dissatisfaction</em> about height, not objective height</li>
-        <li>Worlddata.info: German men +13 cm in 20th century; Spanish +14 cm; South Korean women +20 cm</li>
+        <li>Read each "MID" stamp like a verdict</li>
+        <li>Mid ≠ ceiling on what you can do</li>
       </ul>
-      <p><em>On "taller men earn more": real correlation, well-replicated, but heavily confounded. Happy to fight about it in Q&amp;A.</em></p>`,
+      <h3>Napoleon</h3>
+      <ul>
+        <li>Actually <strong>~5'7"</strong> — average Frenchman of his era</li>
+        <li>Myth = bad unit conversion + Gillray's "Little Boney" cartoons</li>
+        <li>200 years of literal height propaganda</li>
+      </ul>`,
 
-  9: `<h3>VERDICT</h3>
-      <p><em>Slow down. Lower voice. Hold the slide.</em></p>
-      <p>Perfectly mid.</p>
-      <p>The global median. The height of Messi, Kendrick, Pacino, Napoleon. Statistically, the height that outlives everyone above it.</p>
-      <p>The defense rests.</p>
-      <p><em>Optional theatrical move: drop the clicker.</em></p>`,
+  5: `<h3>Heightflation</h3>
+      <ul>
+        <li><strong>Real:</strong> 14.5% of US men ≥ 6'0" (NHANES)</li>
+        <li><strong>Claimed:</strong> 33% — <em>more than 2×</em></li>
+        <li>Dating apps: OkCupid +2", Coffee Meets Bagel +0.5"</li>
+      </ul>
+      <p><em>Coin it. When everyone's 6'0", nobody is.</em></p>`,
+
+  6: `<h3>Live demo</h3>
+      <ul>
+        <li>Scan QR → <code>imnotshort.zackbart.com/demo</code></li>
+        <li>Drop 1.65m / <strong>5'5"</strong> figure on the floor</li>
+        <li>Stand next to it. Pause. Let it land.</li>
+      </ul>
+      <p><em>Backup if AR fails:</em> "global avg is 5'5" — half the planet is shorter than this stick figure." Move on.</p>`,
+
+  7: `<h3>Plot twist: mid is optimal</h3>
+      <ul>
+        <li><strong>Kuakini</strong> (PLOS 2014, 8,003 men, 40 yrs): shorter men outlived taller</li>
+        <li><strong>Italian military:</strong> &lt;5'4" lived ~2 yrs longer at age 70</li>
+        <li><strong>NBA:</strong> tallest died youngest</li>
+        <li>Mechanism: more cells → more chances for cancer</li>
+      </ul>
+      <p><em>Punchline: calling someone mid = announcing you'll die first.</em></p>`,
+
+  8: `<h3>Cross-exam</h3>
+      <ul>
+        <li>Napoleon Complex = named after a man who wasn't short</li>
+        <li>UCLan 2007: short men <em>less</em> likely to lose their temper</li>
+        <li>"Taller men earn more" — real but confounded, punt to Q&amp;A</li>
+      </ul>`,
+
+  9: `<h3>Verdict</h3>
+      <p><em>Slow. Lower voice. Hold.</em></p>
+      <ul>
+        <li>"Perfectly mid."</li>
+        <li>Messi. Kendrick. Pacino. Napoleon.</li>
+        <li>"The defense rests."</li>
+      </ul>
+      <p><em>Optional: drop the clicker.</em></p>`,
 
   10: `<h3>Q&amp;A</h3>
-       <p>If anyone asks for the studies: PLOS ONE 2014 (FOXO3 + height + longevity); NCD-RisC global heights via Our World in Data; CDC NHANES for US distributions; Wikipedia "Napoleon complex" for the propaganda origin.</p>
-       <p>If anyone heckles you about your own height: smile, say "thank you for proving my point," sit down.</p>`
+       <ul>
+         <li>Studies if asked: PLOS ONE 2014, NCD-RisC / OWID, CDC NHANES, Wikipedia "Napoleon complex"</li>
+         <li>Heckler about your height: "thank you for proving my point" → sit down</li>
+       </ul>`
 };
 
 let current = 1;
