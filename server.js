@@ -35,7 +35,7 @@ const headersFor = (path) => {
 
 // ----- Slide-sync state (SSE) -----------------------------------------------
 const state = { slide: 1 };
-const TOTAL = 10;
+const TOTAL = 11;
 const sseClients = new Set();
 const encoder = new TextEncoder();
 

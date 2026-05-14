@@ -146,7 +146,7 @@
 <body>
 
 <header>
-  <div class="count"><span id="cur">1</span><span class="total"> / 10</span></div>
+  <div class="count"><span id="cur">1</span><span class="total"> / 11</span></div>
   <div class="status" id="status" data-state="connecting">
     <span class="dot"></span><span id="status-label">connecting</span>
   </div>
@@ -162,24 +162,31 @@
 </div>
 
 <script>
-const TOTAL = 10;
+const TOTAL = 11;
 
 const NOTES = {
-  1: `<h3>Opening</h3>
+  1: `<h3>Cover</h3>
+      <ul>
+        <li>Let "pp nite" sit. Don't explain it.</li>
+        <li>Wait for the room to settle / laugh / squint.</li>
+        <li>Click → reveal what the deck is actually about.</li>
+      </ul>`,
+
+  2: `<h3>Opening</h3>
       <ul>
         <li>Reclaim "mid" — it was always the goal</li>
         <li>Not defending → prosecuting everyone else's insecurity</li>
       </ul>
       <p><em>Commit. Conviction sells the bit.</em></p>`,
 
-  2: `<h3>The argument</h3>
+  3: `<h3>The argument</h3>
       <ul>
         <li>Online "mid" = nothing special</li>
         <li>Statistical "mid" = the median, the default, peak normal</li>
       </ul>
       <p><em>Thank them — they called you the platonic ideal.</em></p>`,
 
-  3: `<h3>Global mid</h3>
+  4: `<h3>Global mid</h3>
       <ul>
         <li><strong>171 cm = 5'7.5"</strong> — global mean adult male</li>
         <li>OWID + NCD-RisC: 65M people, 200 countries</li>
@@ -187,7 +194,7 @@ const NOTES = {
         <li>Online everyone <em>claims</em> 6'0"</li>
       </ul>`,
 
-  4: `<h3>Witnesses</h3>
+  5: `<h3>Witnesses</h3>
       <ul>
         <li>Read each "MID" stamp like a verdict</li>
         <li>Mid ≠ ceiling on what you can do</li>
@@ -199,7 +206,7 @@ const NOTES = {
         <li>200 years of literal height propaganda</li>
       </ul>`,
 
-  5: `<h3>Heightflation</h3>
+  6: `<h3>Heightflation</h3>
       <ul>
         <li><strong>Real:</strong> 14.5% of US men ≥ 6'0" (NHANES)</li>
         <li><strong>Claimed:</strong> 33% — <em>more than 2×</em></li>
@@ -207,7 +214,7 @@ const NOTES = {
       </ul>
       <p><em>Coin it. When everyone's 6'0", nobody is.</em></p>`,
 
-  6: `<h3>Live demo</h3>
+  7: `<h3>Live demo</h3>
       <ul>
         <li>Scan QR → <code>imnotshort.zackbart.com/demo</code></li>
         <li>Drop 1.65m / <strong>5'5"</strong> figure on the floor</li>
@@ -215,7 +222,7 @@ const NOTES = {
       </ul>
       <p><em>Backup if AR fails:</em> "global avg is 5'5" — half the planet is shorter than this stick figure." Move on.</p>`,
 
-  7: `<h3>Plot twist: mid is optimal</h3>
+  8: `<h3>Plot twist: mid is optimal</h3>
       <ul>
         <li><strong>Kuakini</strong> (PLOS 2014, 8,003 men, 40 yrs): shorter men outlived taller</li>
         <li><strong>Italian military:</strong> &lt;5'4" lived ~2 yrs longer at age 70</li>
@@ -224,23 +231,23 @@ const NOTES = {
       </ul>
       <p><em>Punchline: calling someone mid = announcing you'll die first.</em></p>`,
 
-  8: `<h3>Cross-exam</h3>
+  9: `<h3>Cross-exam</h3>
       <ul>
         <li>Napoleon Complex = named after a man who wasn't short</li>
         <li>UCLan 2007: short men <em>less</em> likely to lose their temper</li>
         <li>"Taller men earn more" — real but confounded, punt to Q&amp;A</li>
       </ul>`,
 
-  9: `<h3>Verdict</h3>
-      <p><em>Slow. Lower voice. Hold.</em></p>
-      <ul>
-        <li>"Perfectly mid."</li>
-        <li>Messi. Kendrick. Pacino. Napoleon.</li>
-        <li>"The defense rests."</li>
-      </ul>
-      <p><em>Optional: drop the clicker.</em></p>`,
+  10: `<h3>Verdict</h3>
+       <p><em>Slow. Lower voice. Hold.</em></p>
+       <ul>
+         <li>"Perfectly mid."</li>
+         <li>Messi. Kendrick. Pacino. Napoleon.</li>
+         <li>"The defense rests."</li>
+       </ul>
+       <p><em>Optional: drop the clicker.</em></p>`,
 
-  10: `<h3>Q&amp;A</h3>
+  11: `<h3>Q&amp;A</h3>
        <ul>
          <li>Studies if asked: PLOS ONE 2014, NCD-RisC / OWID, CDC NHANES, Wikipedia "Napoleon complex"</li>
          <li>Heckler about your height: "thank you for proving my point" → sit down</li>

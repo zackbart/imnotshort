@@ -353,7 +353,23 @@ html, body {
   letter-spacing: 0.02em;
 }
 
-/* ===== Slide 1: TITLE ===== */
+/* ===== Slide 1: COVER REVEAL ===== */
+.s-cover {
+  background: var(--paper);
+  color: var(--ink);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5vh 5vw;
+}
+.s-cover .cover-mark {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* ===== Slide 2: TITLE ===== */
 .s1 { padding: 5vh 5vw 6vh; justify-content: center; align-items: center; text-align: center; }
 .s1-pretitle {
   font-family: var(--font-mono);
@@ -986,8 +1002,13 @@ html, body {
 
 <div class="deck" id="deck">
 
-<!-- ========== SLIDE 1: TITLE ========== -->
-<section class="slide s1 active" data-slide="1">
+<!-- ========== SLIDE 1: COVER REVEAL ========== -->
+<section class="slide s-cover active" data-slide="1">
+  <div class="cover-mark" data-anim="fade-in" data-delay="100">pp nite</div>
+</section>
+
+<!-- ========== SLIDE 2: TITLE ========== -->
+<section class="slide s1" data-slide="2">
   <div class="s1-monster">
     <span data-anim="slam-down" data-delay="200" style="display:inline-block;">5'7"</span><br>
     <span class="hot" data-anim="slam-down" data-delay="450" style="display:inline-block;">IS NOT</span><br>
@@ -999,8 +1020,8 @@ html, body {
   <div class="s1-tag" data-anim="fade-up" data-delay="1200">a defense of the median ↓</div>
 </section>
 
-<!-- ========== SLIDE 2: WHAT IS MID ========== -->
-<section class="slide" data-slide="2">
+<!-- ========== SLIDE 3: WHAT IS MID ========== -->
+<section class="slide" data-slide="3">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>01 / THE ARGUMENT</span><span class="dots"></span><span>5'7" / 170CM</span></div>
 
   <h1 class="s2-head" data-anim="fade-up" data-delay="150">Mid is not an <em>insult</em>.<br>Mid is the <em>POINT</em>.</h1>
@@ -1017,11 +1038,11 @@ html, body {
       <p>The number that splits the distribution in half. The one specific value that is, by definition, the most normal a person can be. The center cannot be a flaw.</p>
     </div>
   </div>
-  <div class="stamp">02 / 10</div>
+  <div class="stamp">03 / 11</div>
 </section>
 
-<!-- ========== SLIDE 3: GLOBAL MID ========== -->
-<section class="slide" data-slide="3">
+<!-- ========== SLIDE 4: GLOBAL MID ========== -->
+<section class="slide" data-slide="4">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>02 / EXHIBIT A — THE PLANET</span><span class="dots"></span><span>NCD-RISC 2020</span></div>
 
   <h1 class="s3-head" data-anim="fade-up" data-delay="150">5'7" isn't short.<br>It's literally the <span class="hot">global median</span>.</h1>
@@ -1047,11 +1068,11 @@ html, body {
     </div>
   </div>
   <div class="cite-foot">// src: NCD risk factor collaboration via Our World in Data</div>
-  <div class="stamp">03 / 10</div>
+  <div class="stamp">04 / 11</div>
 </section>
 
-<!-- ========== SLIDE 4: WITNESSES ========== -->
-<section class="slide" data-slide="4">
+<!-- ========== SLIDE 5: WITNESSES ========== -->
+<section class="slide" data-slide="5">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>03 / EXHIBIT B — THE LINEUP</span><span class="dots"></span><span>ALL CERTIFIED MID</span></div>
 
   <h1 class="s4-head" data-anim="fade-up" data-delay="150">Men <span class="hot">5'7" and under</span><br>that you would never call mid.</h1>
@@ -1067,11 +1088,11 @@ html, body {
     <div class="witness" data-anim="pop-in" data-delay="1100" data-tilt="0.6"><div class="name">Napoleon</div><div class="height">5'6–7"</div><div class="note">Conquered Europe. Was average.</div></div>
   </div>
   <div class="cite-foot">// every "MID" stamp here is a man more accomplished than your last 5 dates combined</div>
-  <div class="stamp">04 / 10</div>
+  <div class="stamp">05 / 11</div>
 </section>
 
-<!-- ========== SLIDE 5: HEIGHTFLATION ========== -->
-<section class="slide" data-slide="5">
+<!-- ========== SLIDE 6: HEIGHTFLATION ========== -->
+<section class="slide" data-slide="6">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>04 / HEIGHTFLATION™</span><span class="dots"></span><span>THE MID IS DEBASED</span></div>
 
   <h1 class="s5-head" data-anim="fade-up" data-delay="150">Every guy online is <span class="hot">6'0"</span>.</h1>
@@ -1110,11 +1131,11 @@ html, body {
     </div>
   </div>
   <div class="cite-foot">// src: CDC NHANES + multiple US survey citations</div>
-  <div class="stamp">05 / 10</div>
+  <div class="stamp">06 / 11</div>
 </section>
 
-<!-- ========== SLIDE 6: DATING APP ========== -->
-<section class="slide" data-slide="6">
+<!-- ========== SLIDE 7: DATING APP ========== -->
+<section class="slide" data-slide="7">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>05 / EXHIBIT C — LIVE DEMO</span><span class="dots"></span><span>AR.QUICKLOOK</span></div>
 
   <h1 class="s6-head" data-anim="fade-up" data-delay="150">Don't take my word for it.<br><span class="hot">See it yourself.</span></h1>
@@ -1146,11 +1167,11 @@ html, body {
       <div class="qr-footnote" data-anim="fade-in" data-delay="1200">// not a metaphor. the figure is to scale.</div>
     </div>
   </div>
-  <div class="stamp">06 / 10</div>
+  <div class="stamp">07 / 11</div>
 </section>
 
-<!-- ========== SLIDE 7: OPTIMAL ========== -->
-<section class="slide" data-slide="7">
+<!-- ========== SLIDE 8: OPTIMAL ========== -->
+<section class="slide" data-slide="8">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>06 / PLOT TWIST</span><span class="dots"></span><span>MID OUTLIVES YOU</span></div>
 
   <h1 class="s7-head" data-anim="fade-up" data-delay="150">Actually, mid is <span class="hot">engineered</span>.</h1>
@@ -1187,11 +1208,11 @@ html, body {
     </div>
   </div>
   <div class="cite-foot">// src: PLOS ONE (He et al. 2014); Italian military longevity study; CNBC longevity coverage</div>
-  <div class="stamp">07 / 10</div>
+  <div class="stamp">08 / 11</div>
 </section>
 
-<!-- ========== SLIDE 8: CROSS-EXAM ========== -->
-<section class="slide" data-slide="8">
+<!-- ========== SLIDE 9: CROSS-EXAM ========== -->
+<section class="slide" data-slide="9">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>07 / OBJECTIONS, ANSWERED</span><span class="dots"></span><span>BE NORMAL</span></div>
 
   <h1 class="s8-head" data-anim="fade-up" data-delay="150">Things you're <span class="hot">about to say</span> that are already debunked.</h1>
@@ -1218,11 +1239,11 @@ html, body {
       <div class="qa-a">Average male height has risen ~9 cm in 100 years globally. Korean women gained 20 cm in a century. This is nutrition, not destiny.</div>
     </div>
   </div>
-  <div class="stamp">08 / 10</div>
+  <div class="stamp">09 / 11</div>
 </section>
 
-<!-- ========== SLIDE 9: VERDICT ========== -->
-<section class="slide s9 hot" data-slide="9">
+<!-- ========== SLIDE 10: VERDICT ========== -->
+<section class="slide s9 hot" data-slide="10">
   <div class="confetti" id="confetti"></div>
   <div class="s9-stamp" data-anim="fade-in" data-delay="0">VERDICT · UNANIMOUS · BED-STUY DISTRICT COURT</div>
   <div class="s9-monster" data-anim="slam-down" data-delay="200">
@@ -1237,8 +1258,8 @@ html, body {
   <div class="s9-rest" data-anim="pop-in" data-delay="1300">I rest my case.</div>
 </section>
 
-<!-- ========== SLIDE 10: QUESTIONS ========== -->
-<section class="slide" data-slide="10">
+<!-- ========== SLIDE 11: QUESTIONS ========== -->
+<section class="slide" data-slide="11">
   <div class="tape" data-anim="fade-in" data-delay="0"><span>08 / Q&amp;A</span><span class="dots"></span><span>END OF DECK</span></div>
 
   <h1 class="s10-head" data-anim="slam-down" data-delay="200">Questions?</h1>
@@ -1254,14 +1275,14 @@ html, body {
       <li data-anim="slide-left" data-delay="1200">Me, Bed-Stuy NY — lived experience, ongoing fieldwork</li>
     </ul>
   </div>
-  <div class="stamp">10 / 10</div>
+  <div class="stamp">11 / 11</div>
 </section>
 
 </div>
 
 <script>
 let current = 1;
-const TOTAL = 10;
+const TOTAL = 11;
 const slides = document.querySelectorAll('.slide');
 
 // Count-up animation for big stats
@@ -1347,8 +1368,8 @@ function showSlide(n) {
   // Trigger count-ups
   triggerCountUps(slide);
 
-  // Slide 9 — confetti
-  if (n === 9) {
+  // Slide 10 (verdict) — confetti
+  if (n === 10) {
     setTimeout(fireConfetti, 600);
   }
 }
