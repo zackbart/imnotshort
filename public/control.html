@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="color-scheme" content="dark only">
+<title>control · i'm not short</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --ink: #fef9ec;
+    --muted: #888;
+    --hot: #ff3d2e;
+    --lime: #c8ff3d;
+    --line: #222;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    overscroll-behavior: contain;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    padding: 0.75rem 1rem;
+    padding-top: calc(0.75rem + env(safe-area-inset-top));
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .count {
+    font-family: 'Archivo Black', system-ui, sans-serif;
+    font-size: 1.6rem; letter-spacing: 0.02em;
+  }
+  .count .total { color: var(--muted); font-weight: 400; }
+  .status {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--muted);
+    transition: background 0.2s;
+  }
+  .status[data-state="connected"] .dot { background: var(--lime); }
+  .status[data-state="reconnecting"] .dot { background: #ffa500; animation: pulse 1s ease-in-out infinite; }
+  .status[data-state="offline"] .dot { background: var(--hot); }
+  @keyframes pulse { 50% { opacity: 0.35; } }
+
+  /* Notes body */
+  main {
+    flex: 1;
+    padding: 1.25rem 1.25rem 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Leave room for the sticky button bar */
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+  }
+  main h3 {
+    font-family: 'Archivo Black', system-ui, sans-serif;
+    font-size: 0.95rem; letter-spacing: 0.04em;
+    color: var(--hot);
+    text-transform: uppercase;
+    margin: 1.25rem 0 0.5rem;
+  }
+  main h3:first-child { margin-top: 0; }
+  main p { font-size: 1.05rem; line-height: 1.45; margin: 0 0 0.85rem; color: #d8d3ca; }
+  main ul, main ol { padding-left: 1.2rem; margin: 0.4rem 0 0.85rem; }
+  main li { margin-bottom: 0.45rem; color: #c8c3ba; line-height: 1.4; }
+  main em { color: var(--ink); font-style: italic; }
+  main strong { color: var(--ink); }
+  main a { color: #ff7a6e; text-decoration: underline; word-break: break-all; }
+  main code {
+    font-family: 'DM Mono', ui-monospace, monospace;
+    background: #1a1a1a;
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  /* Sticky bottom controls */
+  .controls {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--bg) 60%, rgba(13,13,13,0));
+    z-index: 20;
+  }
+  .controls button {
+    appearance: none; border: 0; cursor: pointer;
+    font-family: 'Archivo Black', system-ui, sans-serif;
+    font-size: 1.25rem; letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 1.1rem 1rem;
+    min-height: 64px;
+    border-radius: 12px;
+    color: var(--ink);
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    transition: transform 0.08s, background 0.15s;
+    touch-action: manipulation;
+  }
+  .controls button:active:not(:disabled) {
+    transform: scale(0.97);
+    background: #252525;
+  }
+  .controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .controls .next {
+    background: var(--hot);
+    border-color: var(--hot);
+    color: #fff;
+  }
+  .controls .next:active:not(:disabled) { background: #d92e21; }
+
+  /* No-notes placeholder */
+  .empty {
+    color: var(--muted); font-style: italic; text-align: center;
+    margin-top: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    body { max-width: 480px; margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="count"><span id="cur">1</span><span class="total"> / 10</span></div>
+  <div class="status" id="status" data-state="connecting">
+    <span class="dot"></span><span id="status-label">connecting</span>
+  </div>
+</header>
+
+<main id="notes">
+  <div class="empty">loading…</div>
+</main>
+
+<div class="controls">
+  <button id="prev">‹ Prev</button>
+  <button id="next" class="next">Next ›</button>
+</div>
+
+<script>
+const TOTAL = 10;
+
+const NOTES = {
+  1: `<h3>OPENING</h3>
+      <p>Tonight I'm going to defend a height. Not just defend it — reclaim it. <em>Mid</em> has been weaponized against men in the median, and I'm here to point out that mid was always the goal.</p>
+      <p>The whole bit only works if you commit. Project conviction. You're not making a joke about being short — you're making a joke about <em>everyone else's</em> insecurity.</p>`,
+
+  2: `<h3>THE ARGUMENT</h3>
+      <p>Set up the joke: "mid" online means "nothing special." But <em>statistically</em>, mid is the literal center — the median, the most-common, the default. The most normal a thing can possibly be.</p>
+      <p>So when someone calls 5'7" "mid," they're technically correct AND complimenting you on being the platonic ideal of an average human male. Thank them.</p>`,
+
+  3: `<h3>GLOBAL MID</h3>
+      <p>The empirical anchor. Global mean height for adult men born in 1996 is 171 cm = 5'7.5". That's from Our World in Data via the NCD Risk Factor Collaboration — 2,181 population studies, 65 million participants, 200 countries.</p>
+      <p>5'7" isn't short. It's the literal global median. If 5'7" is short, more than half the men on Earth are short, which makes "short" meaningless.</p>
+      <p>The reason it feels short: you live in a country (USA, avg 5'9") that's above the global average, and you spend time online with people who all <em>claim</em> to be 6'0".</p>
+      <h3>SOURCES</h3>
+      <ul>
+        <li><a href="https://ourworldindata.org/human-height" target="_blank">Our World in Data — Human Height</a>: global mean adult male height 171 cm</li>
+        <li>NCD-RisC / The Lancet (2020): 2,181 studies, 65M participants, 200 countries</li>
+        <li>US average 5'9.2" per CDC NHANES 2015–16</li>
+      </ul>`,
+
+  4: `<h3>WITNESSES</h3>
+      <p>Read each "MID" stamp like a verdict. "Lionel Messi… <em>mid.</em> Kendrick Lamar… <em>mid.</em> Bruno Mars… <em>mid.</em>"</p>
+      <p>The whole point: when "mid" is attached to someone with talent and accomplishment, it becomes absurd. Mid is the floor of the height distribution, not a ceiling on what you can do with your life.</p>
+      <h3>NAPOLEON — THE FOUNDATIONAL LIE</h3>
+      <p>Napoleon was ~5'6–5'7" (~169 cm), <em>average for a Frenchman of his era</em>. The "short Napoleon" myth comes from two places:</p>
+      <ol>
+        <li><em>Measurement confusion</em>: French pre-Revolutionary "pieds" and "pouces" were longer than English feet/inches. His "5 pieds 2 pouces" was actually ~5'7" in modern English units. British sources translated it literally as "5'2".</li>
+        <li><em>British propaganda</em>: Cartoonist James Gillray spent years drawing Napoleon as tiny ("Little Boney") to delegitimize him.</li>
+      </ol>
+      <p>The whole "Napoleon Complex" is named after a man who wasn't short. We've been doing height propaganda for 200 years.</p>
+      <p>Heights for living people are widely-cited approximations (Wikipedia, IMDb, Celebheights). Some are debated within an inch — that's part of the joke.</p>`,
+
+  5: `<h3>HEIGHTFLATION</h3>
+      <p>The empirical core of the bit. Read both numbers slowly.</p>
+      <p><strong>Real:</strong> ~14.5% of US men are 6'0" or taller (CDC NHANES — 72" is roughly the 85th percentile).</p>
+      <p><strong>Claimed:</strong> ~33% of US men self-report being 6'0" or taller — more than double the real rate.</p>
+      <p>Dating apps amplify it. OkCupid's famous 2010 "Big Lies People Tell" analysis showed men adding ~2 inches across the distribution. Coffee Meets Bagel saw ~0.5". Apps are a fiction layer.</p>
+      <p>Coin the term: <em>HEIGHTFLATION</em>. The supply of "6 feet" has expanded faster than actual 6-foot men. The currency is debased. When everyone's 6'0", nobody is.</p>
+      <h3>SOURCES</h3>
+      <ul>
+        <li>CDC NHANES — average US male 5'9.2"; ~14.5% over 6'0"</li>
+        <li>Henderson / multiple US survey citations: 33% self-report ≥6'0"</li>
+        <li>OkCupid 2010 trends analysis (via secondary citations): ~2-inch inflation</li>
+        <li>Newsweek 2022 / Coffee Meets Bagel data: men add ~0.5"</li>
+      </ul>`,
+
+  6: `<h3>LIVE DEMO — SEE FOR YOURSELF</h3>
+      <p>Don't argue from numbers, argue from receipts. Pull out a phone, scan the QR (<code>imnotshort.zackbart.com/demo</code>), and drop a 1.65 m stick figure on the floor in front of the audience.</p>
+      <p>1.65 m = 5'5" = the global mean adult male height. Walk over and stand next to it. The point isn't that you're tall — the point is that the "average human" is shorter than people think.</p>
+      <p>Pause. Let them look. Pass the phone around if you have time. The bit is the prop; the prop is the bit.</p>
+      <h3>BACKUP IF AR FAILS</h3>
+      <p>If AR Quick Look refuses to launch (non-iOS device in audience, no internet, etc.), fall back to: "fine, take my word for it — the global average is 5'5". Half the planet is shorter than this stick figure." Then move on.</p>`,
+
+  7: `<h3>PLOT TWIST: MID IS OPTIMAL</h3>
+      <p>The big reframe. Not just defending 5'7" — claiming it's the <em>optimal</em> height.</p>
+      <h3>EVIDENCE</h3>
+      <ul>
+        <li><strong>Kuakini Honolulu-Asia Aging Study</strong> (He, Willcox et al., PLOS ONE 2014): 8,003 men of Japanese ancestry followed for 40+ years. Positive association between height and all-cause mortality (RR = 1.007 per cm). Shorter men outlived taller men. Taller men had higher cancer mortality.</li>
+        <li><strong>Italian military study</strong>: men under 5'4" lived ~2 years longer than taller men at age 70.</li>
+        <li><strong>NBA study (2017)</strong>: tallest players died youngest. Finnish athlete study: cross-country skiers outlived basketball players by nearly 7 years.</li>
+        <li><strong>Mechanism</strong>: taller bodies require more cell replications across a lifetime. More cells, more chances for things to go wrong (Robine, CNBC 2023).</li>
+      </ul>
+      <p>Punchline: calling someone mid is just announcing that you've chosen to die first.</p>
+      <h3>SOURCES</h3>
+      <ul>
+        <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0094385" target="_blank">He et al. (2014) — Shorter Men Live Longer (PLOS ONE)</a></li>
+        <li>CNBC (2023): Robine, Italian military, Finnish athlete summary</li>
+      </ul>`,
+
+  8: `<h3>CROSS-EXAMINATION</h3>
+      <p>Walk through each objection like you're knocking them down. Napoleon Complex is the cleanest punchline — it's a stereotype named after a man who wasn't short, derived from British wartime propaganda, and the one peer-reviewed study found the <em>opposite</em> of the stereotype.</p>
+      <h3>SOURCES</h3>
+      <ul>
+        <li>2007 University of Central Lancashire study (via Wikipedia "Napoleon complex"): short men less likely to lose their temper</li>
+        <li>Bleeker et al. (2022): antagonism correlates with <em>dissatisfaction</em> about height, not objective height</li>
+        <li>Worlddata.info: German men +13 cm in 20th century; Spanish +14 cm; South Korean women +20 cm</li>
+      </ul>
+      <p><em>On "taller men earn more": real correlation, well-replicated, but heavily confounded. Happy to fight about it in Q&amp;A.</em></p>`,
+
+  9: `<h3>VERDICT</h3>
+      <p><em>Slow down. Lower voice. Hold the slide.</em></p>
+      <p>Perfectly mid.</p>
+      <p>The global median. The height of Messi, Kendrick, Pacino, Napoleon. Statistically, the height that outlives everyone above it.</p>
+      <p>The defense rests.</p>
+      <p><em>Optional theatrical move: drop the clicker.</em></p>`,
+
+  10: `<h3>Q&amp;A</h3>
+       <p>If anyone asks for the studies: PLOS ONE 2014 (FOXO3 + height + longevity); NCD-RisC global heights via Our World in Data; CDC NHANES for US distributions; Wikipedia "Napoleon complex" for the propaganda origin.</p>
+       <p>If anyone heckles you about your own height: smile, say "thank you for proving my point," sit down.</p>`
+};
+
+let current = 1;
+let inFlight = false;
+let es = null;
+// Monotonic timestamp of the most recent state we've rendered. Used to
+// reject stale /api/state responses that arrive after a fresher SSE message.
+let lastUpdateAt = 0;
+
+const elCur = document.getElementById('cur');
+const elNotes = document.getElementById('notes');
+const elPrev = document.getElementById('prev');
+const elNext = document.getElementById('next');
+const elStatus = document.getElementById('status');
+const elStatusLabel = document.getElementById('status-label');
+
+function render(n) {
+  lastUpdateAt = performance.now();
+  current = n;
+  elCur.textContent = String(n);
+  elNotes.innerHTML = NOTES[n] || '<div class="empty">no notes for this slide</div>';
+  elNotes.scrollTop = 0;
+  elPrev.disabled = inFlight || n <= 1;
+  elNext.disabled = inFlight || n >= TOTAL;
+}
+
+function setStatus(state, label) {
+  elStatus.dataset.state = state;
+  elStatusLabel.textContent = label;
+}
+
+async function pushDelta(d) {
+  if (inFlight) return;
+  inFlight = true;
+  elPrev.disabled = true;
+  elNext.disabled = true;
+  // Re-enable after a max timeout in case the response never comes.
+  const failsafe = setTimeout(() => {
+    inFlight = false;
+    elPrev.disabled = current <= 1;
+    elNext.disabled = current >= TOTAL;
+  }, 1500);
+  try {
+    const res = await fetch('/api/slide', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ delta: d }),
+    });
+    if (!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    render(data.slide);
+  } catch (err) {
+    setStatus('offline', 'send failed');
+    setTimeout(() => { if (es && es.readyState === EventSource.OPEN) setStatus('connected', 'live'); }, 1200);
+  } finally {
+    clearTimeout(failsafe);
+    inFlight = false;
+    elPrev.disabled = current <= 1;
+    elNext.disabled = current >= TOTAL;
+  }
+}
+
+elPrev.addEventListener('click', () => pushDelta(-1));
+elNext.addEventListener('click', () => pushDelta(1));
+
+function openStream() {
+  if (es) { try { es.close(); } catch {} }
+  setStatus('reconnecting', 'connecting');
+  es = new EventSource('/events');
+  es.addEventListener('open', () => setStatus('connected', 'live'));
+  es.addEventListener('message', (ev) => {
+    try {
+      const data = JSON.parse(ev.data);
+      if (typeof data.slide === 'number') render(data.slide);
+    } catch {}
+  });
+  es.addEventListener('error', () => {
+    setStatus('reconnecting', 'reconnecting');
+    // EventSource auto-reconnects; this listener fires on transient errors too.
+  });
+}
+
+async function hydrate() {
+  const startedAt = performance.now();
+  try {
+    const r = await fetch('/api/state');
+    if (!r.ok) return;
+    const d = await r.json();
+    // Drop the hydrate result if a newer SSE message rendered after we
+    // started the request — avoids stale /api/state overwriting fresher state.
+    if (lastUpdateAt > startedAt) return;
+    if (typeof d.slide === 'number') render(d.slide);
+  } catch {}
+}
+
+// iOS Safari aggressively suspends backgrounded tabs and may not deliver
+// EventSource messages promptly on return. Force a fresh state + stream on
+// visibility return.
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    hydrate();
+    if (!es || es.readyState !== EventSource.OPEN) openStream();
+  }
+});
+
+hydrate();
+openStream();
+</script>
+
+</body>
+</html>
